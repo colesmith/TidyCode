@@ -1,4 +1,4 @@
-# Code Editor
+# Tidy Code
 
 ## Resource
 
