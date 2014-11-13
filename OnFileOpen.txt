@@ -1,0 +1,34 @@
+
+		CFileDialog *lpszOpenFile;    //定义一个CfileDialog对象
+		CFile file;
+		CString filePathName;
+		//生成一个对话框
+		lpszOpenFile = new CFileDialog
+			(TRUE,NULL,NULL,OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
+			(LPCTSTR)TEXT("All Files(*.*)|*.*|C Source File(*.c)|*.c|C/C++ Header File(*.h)|*.h|C++ Source File(*.cpp)|*.cpp|Python Source File(*.py)|*.py||"),
+			NULL);
+
+		if(lpszOpenFile->DoModal() == IDOK )//假如点击对话框确定按钮
+		{
+			filePathName = lpszOpenFile->GetPathName();//得到打开文件的路径
+			SetWindowText(filePathName);//在窗口标题上显示路径
+			if(filePathName == "")  return;
+			if(!file.Open(filePathName,CFile::modeRead))
+			{
+				MessageBox(TEXT("Open File Error"), TEXT("Error"), MB_OK);
+				return;
+			}
+			char * pBuf;
+			DWORD dwFileLen;
+			dwFileLen = file.GetLength();
+			pBuf = new char[dwFileLen + 1];
+			pBuf[dwFileLen] = 0;
+			file.Read(pBuf, dwFileLen);
+			file.Close();
+
+			GetDlgItem(IDC_EDIT_CONTENT)->SetWindowTextW(CString(pBuf));
+		}
+		else 
+		{
+			return ;
+		}	
