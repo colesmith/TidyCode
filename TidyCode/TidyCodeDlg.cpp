@@ -196,6 +196,7 @@ void CTidyCodeDlg::OnFileOpen()
 		
 		return ;
 	}
+	/* ≥¢ ‘Õ∆ÀÕ∑÷÷ß*/
 }
 
 
